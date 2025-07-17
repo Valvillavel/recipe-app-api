@@ -2,9 +2,12 @@ import express from "express";
 import { ENV } from "./config/env.js";
 import { db } from "./config/db.js";
 import { favoritesTable } from "./db/schema.js";
+import job from "./config/cron.js"
 
 const app = express();
 const PORT = process.env.PORT;
+if(ENV.NODE_ENV === "production")job.start()
+
 app.use(express.json());
 
 app.get("/api/health", (req, res) => {
